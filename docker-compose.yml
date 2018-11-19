@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  pg-server:
+    image: bkuzmic/example-db:latest
+    networks:
+      - native-network
+    ports:
+      - "5432:5432"
+
+  json-web-server:
+    image: bkuzmic/json-web-server:latest
+    networks:
+      - native-network
+    ports:
+      - "4567:4567"
+    depends_on:
+      - pg-server
+    environment:
+      - PG_SERVER_HOST=pg-server
+      - PG_DATABASE_NAME=example
+      - PG_DATABASE_USERNAME=test
+      - PG_DATABASE_PASSWORD=password
+      - PG_DATABASE_MAX_CONNECTIONS=5
+
+networks:
+  native-network:
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 169.100.200.0/24
