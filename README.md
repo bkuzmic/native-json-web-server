@@ -1,4 +1,4 @@
-# Native Java Json Web Server using GraalVM native-image
+# Native Java Json Web Server using GraalVM's native-image
 
 This is example of running Undertow HTTP server with /user and /user/:id endpoints.
 It runs in it's own Docker container and reads user details from PostgreSQL database running in separate Docker container.
