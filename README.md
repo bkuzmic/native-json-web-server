@@ -21,7 +21,7 @@ Access running HTTP server endpoints to get Json response:
 
 or
 
-> curl http://127.0.0.1:4567/user/1
+> curl http://127.0.0.1:4567/user/1000
 
 ### Stats
 Application starts in 1-3ms (on Core i7) and Docker statistics show memory usage of only 13.5MB on startup.
