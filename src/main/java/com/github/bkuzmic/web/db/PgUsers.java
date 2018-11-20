@@ -2,7 +2,7 @@ package com.github.bkuzmic.web.db;
 
 import com.github.bkuzmic.web.db.exception.DbRuntimeException;
 import com.github.bkuzmic.web.db.pool.ConnectionPool;
-import com.github.bkuzmic.web.db.pool.PgClosableConnection;
+import com.github.bkuzmic.web.db.pool.impl.PgClosableConnection;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,10 @@
 package com.github.bkuzmic.web;
 
-
 import com.github.bkuzmic.web.db.*;
-import com.github.bkuzmic.web.db.pool.BasicPgConnectionPool;
-import com.github.bkuzmic.web.db.pool.ConnectionFactory;
-import com.github.bkuzmic.web.db.pool.ConnectionPool;
-import com.github.bkuzmic.web.db.pool.PgConnectionFactory;
+import com.github.bkuzmic.web.db.pool.*;
+import com.github.bkuzmic.web.db.pool.impl.PgConnectionPool;
+import com.github.bkuzmic.web.db.pool.impl.ConnectionObjectPool;
+import com.github.bkuzmic.web.db.pool.impl.PgConnectionFactory;
 import com.github.bkuzmic.web.view.JsonHttpServerExchange;
 import com.github.bkuzmic.web.view.JsonResponse;
 import com.github.bkuzmic.web.view.StatsJsonPrinter;
@@ -60,7 +59,7 @@ public class Main {
         ConnectionFactory pgConnectionFactory =
                 new PgConnectionFactory(getPostgresUrl(), getDatabaseUsername(), getDatabasePassword());
 
-        pgPool = new BasicPgConnectionPool(pgConnectionFactory, getDatabaseMaxConnections());
+        pgPool = new PgConnectionPool(new ConnectionObjectPool(30000, pgConnectionFactory));
 
         HttpHandler usersHandler = this::fetchAllUsers;
 
@@ -87,7 +86,7 @@ public class Main {
 
         HttpHandler statsHandler = exchange -> {
             LOGGER.info("Get pool statistics");
-            new JsonResponse<>(new StatsJsonPrinter(),  new JsonHttpServerExchange(exchange)).toJson(pgPool.getSize());
+            new JsonResponse<>(new StatsJsonPrinter(),  new JsonHttpServerExchange(exchange)).toJson(pgPool.size());
         };
 
         RoutingHandler routes = new RoutingHandler()
@@ -125,9 +124,6 @@ public class Main {
     }
     private String getDatabasePassword() {
         return System.getenv("PG_DATABASE_PASSWORD");
-    }
-    private int getDatabaseMaxConnections() {
-        return Integer.parseInt(System.getenv("PG_DATABASE_MAX_CONNECTIONS"));
     }
 
 }

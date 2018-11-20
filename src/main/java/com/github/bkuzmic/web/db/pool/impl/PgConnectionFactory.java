@@ -1,6 +1,7 @@
-package com.github.bkuzmic.web.db.pool;
+package com.github.bkuzmic.web.db.pool.impl;
 
 import com.github.bkuzmic.web.db.exception.DbRuntimeException;
+import com.github.bkuzmic.web.db.pool.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

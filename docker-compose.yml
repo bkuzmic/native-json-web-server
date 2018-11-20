@@ -21,7 +21,6 @@ services:
       - PG_DATABASE_NAME=example
       - PG_DATABASE_USERNAME=test
       - PG_DATABASE_PASSWORD=password
-      - PG_DATABASE_MAX_CONNECTIONS=5
 
 networks:
   native-network:

@@ -6,8 +6,6 @@ docker build -t bkuzmic/example-db:latest src/postgres-db/
 
 # build native app
 docker build \
-   --build-arg http_proxy="http://172.17.64.136:8080" \
-   --build-arg https_proxy="http://172.17.64.136:8080" \
    --build-arg GRAAL_ARGUMENTS="--no-server --verbose -cp target/*:target/lib/* \
       com.github.bkuzmic.web.Main \
       -H:EnableURLProtocols=http \

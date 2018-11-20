@@ -1,5 +1,6 @@
-package com.github.bkuzmic.web.db.pool;
+package com.github.bkuzmic.web.db.pool.impl;
 
+import com.github.bkuzmic.web.db.pool.ConnectionPool;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
