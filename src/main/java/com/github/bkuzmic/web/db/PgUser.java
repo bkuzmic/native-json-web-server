@@ -3,11 +3,7 @@ package com.github.bkuzmic.web.db;
 import com.github.bkuzmic.web.db.exception.DbRuntimeException;
 import com.github.bkuzmic.web.db.pool.ConnectionPool;
 import com.github.bkuzmic.web.db.pool.PgClosableConnection;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
 
-import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.Date;
 
@@ -52,8 +48,7 @@ public class PgUser implements User {
 
     private <T> T getSingleResult(String field, Class<T> type) {
         try (PgClosableConnection closableConnection = this.pool.getConnection()){
-            DSLContext create = DSL.using(closableConnection.getConnection(), SQLDialect.POSTGRES);
-            return create.selectFrom("example.user").where("id = {0}", this.id).fetchOne(field, type);
+            return closableConnection.context().selectFrom("example.user").where("id = {0}", this.id).fetchOne(field, type);
         } catch (Exception e) {
             throw new DbRuntimeException(e);
         }

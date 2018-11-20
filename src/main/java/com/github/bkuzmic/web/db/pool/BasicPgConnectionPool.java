@@ -58,7 +58,7 @@ public class BasicPgConnectionPool implements ConnectionPool {
             try {
                 connection = connectionPool
                     .remove(connectionPool.size() - 1);
-                if (connection.getConnection().isValid(0)) {
+                if (connection.connection().isValid(0)) {
                     break;
                 }
             } catch (SQLException e) {
@@ -93,12 +93,12 @@ public class BasicPgConnectionPool implements ConnectionPool {
         try {
             if (connectionPool != null) {
                 for (PgClosableConnection connection : connectionPool) {
-                    connection.getConnection().close();
+                    connection.connection().close();
                 }
                 connectionPool.clear();
             }
             for (PgClosableConnection connection : usedConnections) {
-                connection.getConnection().close();
+                connection.connection().close();
             }
             usedConnections.clear();
         } catch (Exception e){
