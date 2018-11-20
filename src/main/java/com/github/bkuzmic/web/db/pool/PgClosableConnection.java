@@ -10,12 +10,10 @@ public class PgClosableConnection implements AutoCloseable {
 
     private final Connection connection;
     private final ConnectionPool connectionPool;
-    private final DSLContext context;
 
     public PgClosableConnection(Connection connection, ConnectionPool connectionPool) {
         this.connection = connection;
         this.connectionPool = connectionPool;
-        this.context = DSL.using(this.connection, SQLDialect.POSTGRES);
     }
 
     public Connection connection() {
@@ -23,7 +21,7 @@ public class PgClosableConnection implements AutoCloseable {
     }
 
     public DSLContext context() {
-        return this.context;
+        return DSL.using(this.connection, SQLDialect.POSTGRES);
     }
 
     @Override
